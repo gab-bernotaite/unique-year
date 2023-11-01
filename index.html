@@ -2,10 +2,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <link rel="stylesheet" type="text/css" href="styles/index.css">
+    <title>Unique Year Checker</title>
+    <script></script>
 </head>
 <body>
-    <main></main>
+    <div class="main-content-container">
+        <h1>Unique Year Checker</h1>
+        <p>Please enter a year</p>
+        <div class="year-input">
+            <input id="year-input"></input>
+        </div>
+        <button onclick="isYearUnique()">Submit</button>
+    </div>
+    <p class="hidden" id="year-is-unique">This year is unique</p>
+    <p class="hidden" id="year-is-not-unique">This year is not unique</p>
 </body>
-<script type="module" src="js/uniqueYear.js"></script>
+<script type="text/javascript">
+class Year {
+    constructor(year) {
+        this.year = year
+    }
+    toArray() {
+        let digits = String(this.year) // turns year to a string
+            .split('') // splits into an array of string digits
+            .map(Number) // turns each array item into an integer
+        return digits;
+    }    
+    toSetValues(array) {
+        let setOfDigits = new Set(array)
+        return Array.from(setOfDigits)
+    }
+    isUnique(uniqueDigits) {
+        let isUnique = this.toArray().length == uniqueDigits.length
+
+        return isUnique
+    }
+}
+
+function isYearUnique(){
+    console.log(document.getElementById('year-input').value);
+    const year = new Year(document.getElementById('year-input').value);
+    const digits = year.toArray();
+    const uniqueDigitsArray = year.toSetValues(digits);
+    const isUnique = year.isUnique(uniqueDigitsArray);
+    console.log(isUnique);
+    // isUnique ? document.getElementById("year-is-unique").classList.remove("hidden") : document.getElementById("year-is-not-unique").classList.remove("hidden");
+    if (isUnique) {
+        document.getElementById("year-is-unique").classList.remove("hidden");
+        document.getElementById("year-is-not-unique").classList.add("hidden");
+    } else {
+        document.getElementById("year-is-not-unique").classList.remove("hidden");
+        document.getElementById("year-is-unique").classList.add("hidden");
+    }
+}
+    
+    
+    </script>
+
 </html>
